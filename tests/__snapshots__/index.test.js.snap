@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot already-imported 1`] = `
+"
+// @flow
+import type { State as AppState } from './App/reducer'
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// @flow
+import type { State as AppState } from './App/reducer';
+
+export type State = {
+  app: AppState;
+};
+"
+`;
+
+exports[`snapshot basic 1`] = `
+"
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// @flow
+import type { State as AppState } from \\"./App/reducer\\";
+
+export type State = {
+  app: AppState;
+};
+"
+`;
+
+exports[`snapshot some-state 1`] = `
+"
+// @flow
+import type { State as HogeState } from './Hoge/reducer'
+
+export type State = {
+  hoge: HogeState,
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// @flow
+import type { State as HogeState } from './Hoge/reducer';
+
+import type { State as AppState } from './App/reducer';
+
+export type State = {
+  hoge: HogeState;
+  app: AppState;
+};
+"
+`;
+
+exports[`snapshot some-state2 1`] = `
+"
+// @flow
+
+export type State = {
+  hoge: HogeState,
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// @flow
+import type { State as AppState } from \\"./App/reducer\\";
+
+export type State = {
+  app: AppState;
+};
+"
+`;

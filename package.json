@@ -13,6 +13,7 @@
     "node": ">=6"
   },
   "scripts": {
+    "prepublish": "npm run build",
     "build": "babel src -d lib --ignore __tests__",
     "flow": "flow",
     "lint": "eslint src",

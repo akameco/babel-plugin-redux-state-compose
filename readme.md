@@ -15,11 +15,26 @@ $ npm install babel-plugin-redux-state-compose
 ### In
 
 ```js
+// @flow
+import type { State as HogeState } from './Hoge/reducer'
+
+export type State = {
+  hoge: HogeState,
+}
 ```
 
 ### Out
 
 ```js
+// @flow
+import type { State as HogeState } from './Hoge/reducer';
+
+import type { State as AppState } from './App/reducer';
+
+export type State = {
+  hoge: HogeState;
+  app: AppState;
+};
 ```
 
 ### babalrc

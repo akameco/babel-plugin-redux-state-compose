@@ -23,6 +23,14 @@ export type State = {
 }
 ```
 
+App/reducer.js
+```js
+// @flow
+export type State = { app: string }
+
+export const initialState: State = { app: 'app' }
+```
+
 ### Out
 
 ```js
@@ -41,7 +49,7 @@ export type State = {
 
 ```
 {
-  "plugins": [["redux-store-compose", {input: 'other/store.js'}]]
+  "plugins": [["redux-store-compose", {input: 'App/reducer.js'}]]
 }
 ```
 

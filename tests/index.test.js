@@ -10,9 +10,9 @@ const fixturePath = join(__dirname, 'fixtures')
 for (const dir of fs.readdirSync(fixturePath)) {
   test(`snapshot ${dir}`, () => {
     const cwd = join(fixturePath, dir)
-    const inputPath = glob.sync(`**/reducer.js`, {
+    const inputPath = glob.sync(`**/App/reducer.js`, {
       cwd,
-      realpath: true,
+      realpath: true
     })[0]
 
     const filename = join(fixturePath, dir, 'state.js')
@@ -21,7 +21,7 @@ for (const dir of fs.readdirSync(fixturePath)) {
     const result = transform(code, {
       filename,
       babelrc: false,
-      plugins: [[plugin, { inputPath }]],
+      plugins: [[plugin, { inputPath }]]
     }).code.trim()
 
     const separator = '\n\n      ↓ ↓ ↓ ↓ ↓ ↓\n\n'

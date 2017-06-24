@@ -10,6 +10,8 @@ import type { State as AppState } from './App/reducer'
 // @flow
 import type { State as AppState } from './App/reducer';
 
+import { initialState as appState } from './App/reducer';
+
 export type State = {
   app: AppState;
 };
@@ -24,6 +26,25 @@ exports[`snapshot basic 1`] = `
 
 // @flow
 import type { State as AppState } from \\"./App/reducer\\";
+
+import { initialState as appState } from \\"./App/reducer\\";
+
+export type State = {
+  app: AppState;
+};
+"
+`;
+
+exports[`snapshot reducer-basic 1`] = `
+"
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// @flow
+import type { State as AppState } from \\"./App/reducer\\";
+
+import { initialState as appState } from \\"./App/reducer\\";
 
 export type State = {
   app: AppState;
@@ -57,6 +78,9 @@ export type State = {
 import type { State as AppState } from './App/reducer';
 import type { State as HogeState } from './Hoge/reducer';
 
+import { initialState as appState } from './App/reducer';
+import { initialState as hogeState } from './Hoge/reducer';
+
 export type State = {
   app: AppState;
   hoge: HogeState;
@@ -76,6 +100,8 @@ export type State = {
 
 // @flow
 import type { State as AppState } from \\"./App/reducer\\";
+
+import { initialState as appState } from \\"./App/reducer\\";
 
 export type State = {
   app: AppState;

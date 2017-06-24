@@ -31,6 +31,7 @@
     "babel-explode-module": "^1.4.0",
     "babel-file-loader": "^1.0.2",
     "babel-types": "^6.25.0",
+    "camelcase": "^4.1.0",
     "uppercamelcase": "^3.0.0"
   },
   "devDependencies": {

@@ -15,6 +15,12 @@ import { initialState as appState } from './App/reducer';
 export type State = {
   app: AppState;
 };
+
+const initialState: State = {
+  app: appState
+};
+
+export default initialState;
 "
 `;
 
@@ -32,6 +38,12 @@ import { initialState as appState } from \\"./App/reducer\\";
 export type State = {
   app: AppState;
 };
+
+const initialState: State = {
+  app: appState
+};
+
+export default initialState;
 "
 `;
 
@@ -49,6 +61,12 @@ import { initialState as appState } from \\"./App/reducer\\";
 export type State = {
   app: AppState;
 };
+
+const initialState: State = {
+  app: appState
+};
+
+export default initialState;
 "
 `;
 
@@ -85,6 +103,13 @@ export type State = {
   app: AppState;
   hoge: HogeState;
 };
+
+const initialState: State = {
+  app: appState,
+  hoge: hogeState
+};
+
+export default initialState;
 "
 `;
 
@@ -106,5 +131,11 @@ import { initialState as appState } from \\"./App/reducer\\";
 export type State = {
   app: AppState;
 };
+
+const initialState: State = {
+  app: appState
+};
+
+export default initialState;
 "
 `;

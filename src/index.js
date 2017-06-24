@@ -34,6 +34,7 @@ function haveInitialState(path: Path): boolean {
   return isExport(path, INITIAL_STATE)
 }
 
+// export type State = { app: AppState }
 const createStateDeclaration = (states: Array<*>) => {
   const stateTypes = states.map(v => {
     return t.objectTypeProperty(
@@ -53,6 +54,31 @@ const createStateDeclaration = (states: Array<*>) => {
   )
 }
 
+// const initialState: State = { app: appState }
+const createInitialStateDeclaration = (states: Array<*>) => {
+  const props = states.map(v =>
+    t.objectProperty(
+      t.identifier(v.name.replace(STATE, '').toLowerCase()),
+      t.identifier(camelCase(v.name))
+    )
+  )
+
+  const id = t.identifier(INITIAL_STATE)
+
+  id.typeAnnotation = t.typeAnnotation(
+    t.genericTypeAnnotation(t.identifier(STATE))
+  )
+
+  return t.variableDeclaration('const', [
+    t.variableDeclarator(id, t.objectExpression(props))
+  ])
+}
+
+const createExportDefault = () => {
+  return t.exportDefaultDeclaration(t.identifier(INITIAL_STATE))
+}
+
+// import type {State as AppState} from './App/reducer'
 const createNewImportStateDeclaration = (source: ?string) => {
   if (!source) {
     return null
@@ -72,6 +98,7 @@ const createNewImportStateDeclaration = (source: ?string) => {
   return newImportStateDeclaration
 }
 
+// import {initialState as appState} from './App/reducer'
 const createInitStateDeclaration = (source: ?string) => {
   if (!source) {
     return null
@@ -161,7 +188,10 @@ export default () => {
             ...declarations,
             t.noop(),
             createStateDeclaration(states),
-            t.noop()
+            t.noop(),
+            createInitialStateDeclaration(states),
+            t.noop(),
+            createExportDefault()
           ]
 
           path.addComment('leading', ' @flow', true)

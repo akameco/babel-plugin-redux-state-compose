@@ -3,6 +3,7 @@ import { dirname, normalize } from 'path'
 import * as t from 'babel-types'
 import flowSyntax from 'babel-plugin-syntax-flow'
 import { loadFileSync } from 'babel-file-loader'
+import { removeFlowComment } from 'babel-add-flow-comments'
 import explodeModule from 'babel-explode-module'
 import camelCase from 'camelcase'
 import upperCamelCase from 'uppercamelcase'
@@ -194,6 +195,7 @@ export default () => {
             createExportDefault()
           ]
 
+          removeFlowComment(file.ast.comments)
           path.addComment('leading', ' @flow', true)
         }
       }

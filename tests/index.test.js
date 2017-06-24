@@ -10,10 +10,11 @@ const fixturePath = join(__dirname, 'fixtures')
 for (const dir of fs.readdirSync(fixturePath)) {
   test(`snapshot ${dir}`, () => {
     const cwd = join(fixturePath, dir)
-    const inputPath = glob.sync(`**/App/reducer.js`, {
-      cwd,
-      realpath: true
-    })[0]
+    const inputPath =
+      glob.sync(`**/App/reducer.js`, {
+        cwd,
+        realpath: true
+      })[0] || `${cwd}/App/reducer.js`
 
     const filename = join(fixturePath, dir, 'state.js')
     const code = fs.readFileSync(filename, 'utf8').trim()

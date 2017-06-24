@@ -31,6 +31,17 @@ export type State = {
 "
 `;
 
+exports[`snapshot remove 1`] = `
+"
+// @flow
+import type { State as AppState } from './App/reducer'
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+
+"
+`;
+
 exports[`snapshot some-state 1`] = `
 "
 // @flow

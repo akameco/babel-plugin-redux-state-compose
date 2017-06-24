@@ -26,7 +26,7 @@ function hasType(path: Path) {
   return true
 }
 
-function isStateFile(path: Path): boolean {
+function haveStateType(path: Path): boolean {
   let isType = false
   path.traverse({
     TypeAlias(path: Path) {
@@ -92,13 +92,22 @@ export default () => {
 
           try {
             const inputFile = loadFileSync(inputPath)
-            if (!isStateFile(inputFile.path)) {
+            if (!haveStateType(inputFile.path)) {
               return false
             }
           } catch (err) {
             if (err.code !== 'ENOENT') {
               throw err
             }
+            for (const item of path.get('body')) {
+              if (
+                t.isImportDeclaration(item) &&
+                item.node.source.value === importPath
+              ) {
+                item.remove()
+              }
+            }
+            return false
           }
 
           const exploded = explodeModule(path.node)

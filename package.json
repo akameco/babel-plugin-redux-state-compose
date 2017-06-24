@@ -24,7 +24,12 @@
     "lib"
   ],
   "keywords": [
-    ""
+    "babel",
+    "redux",
+    "s2s",
+    "source2source",
+    "reducer",
+    "babel-plugin"
   ],
   "dependencies": {
     "babel-add-flow-comments": "^0.2.0",

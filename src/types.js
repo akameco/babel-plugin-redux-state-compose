@@ -1,7 +1,7 @@
 // @flow
 export type Node = {
   type: string,
-  [key: string]: any,
+  [key: string]: any
 }
 
 export type Path = {
@@ -10,21 +10,21 @@ export type Path = {
   get: (path: 'body') => Array<Path>,
   get: (path: string) => Path,
   insertBefore: (path: any) => void,
-  [key: string]: any,
+  [key: string]: any
 }
 
 export type State = {
   file: {
     opts: {
-      filename: string,
+      filename: string
     },
     ast: {
-      comments: Array<*>,
+      comments: Array<*>
     },
-    [key: string]: any,
+    [key: string]: any
   },
   opts: {
-    inputPath?: string,
+    input?: string
   },
-  [key: string]: any,
+  [key: string]: any
 }

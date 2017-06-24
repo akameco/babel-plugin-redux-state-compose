@@ -125,16 +125,16 @@ export default () => {
     visitor: {
       Program: {
         // eslint-disable-next-line
-        exit(path: Path, { file, opts: { inputPath } }: State): boolean | void {
-          if (!inputPath) {
+        exit(path: Path, { file, opts: { input } }: State): boolean | void {
+          if (!input) {
             return false
           }
 
           const { filename: from } = file.opts
-          const importPath = getImportPath(from, inputPath)
+          const importPath = getImportPath(from, input)
 
           try {
-            const { path: loadPath } = loadFileSync(inputPath)
+            const { path: loadPath } = loadFileSync(input)
 
             if (!(haveStateType(loadPath) && haveInitialState(loadPath))) {
               return false

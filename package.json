@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-redux-state-compose",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "compose redux State type",
   "license": "MIT",
   "repository": "akameco/babel-plugin-redux-state-compose",

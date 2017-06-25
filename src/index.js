@@ -33,7 +33,7 @@ function haveStateType(path: Path): boolean {
 const createStateDeclaration = (states: Array<*>) => {
   const stateTypes = states.map(v => {
     return t.objectTypeProperty(
-      t.identifier(v.name.replace(STATE, '').toLowerCase()),
+      t.identifier(v.name.replace(STATE, '')),
       t.genericTypeAnnotation(t.identifier(v.name))
     )
   })

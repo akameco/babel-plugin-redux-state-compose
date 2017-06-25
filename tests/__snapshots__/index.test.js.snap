@@ -11,7 +11,7 @@ import type { State as AppState } from './App/reducer'
 import type { State as AppState } from './App/reducer';
 
 export type State = {
-  app: AppState;
+  App: AppState;
 };
 "
 `;
@@ -26,7 +26,7 @@ exports[`snapshot basic 1`] = `
 import type { State as AppState } from \\"./App/reducer\\";
 
 export type State = {
-  app: AppState;
+  App: AppState;
 };
 "
 `;
@@ -41,7 +41,7 @@ exports[`snapshot reducer-basic 1`] = `
 import type { State as AppState } from \\"./App/reducer\\";
 
 export type State = {
-  app: AppState;
+  App: AppState;
 };
 "
 `;
@@ -73,8 +73,8 @@ import type { State as AppState } from './App/reducer';
 import type { State as HogeState } from './Hoge/reducer';
 
 export type State = {
-  app: AppState;
-  hoge: HogeState;
+  App: AppState;
+  Hoge: HogeState;
 };
 "
 `;
@@ -82,6 +82,7 @@ export type State = {
 exports[`snapshot some-state2 1`] = `
 "
 // @flow
+import type { State as HogeFugaState } from './HogeFuga/reducer'
 
 export type State = {
   hoge: HogeState,
@@ -90,10 +91,12 @@ export type State = {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 // @flow
-import type { State as AppState } from \\"./App/reducer\\";
+import type { State as AppState } from './App/reducer';
+import type { State as HogeFugaState } from './HogeFuga/reducer';
 
 export type State = {
-  app: AppState;
+  App: AppState;
+  HogeFuga: HogeFugaState;
 };
 "
 `;

@@ -38,20 +38,10 @@ export const initialState: State = { app: 'app' }
 import type { State as AppState } from './App/reducer';
 import type { State as HogeState } from './Hoge/reducer';
 
-import { initialState as appState } from './App/reducer';
-import { initialState as hogeState } from './Hoge/reducer';
-
 export type State = {
   app: AppState;
   hoge: HogeState;
 };
-
-const initialState: State = {
-  app: appState,
-  hoge: hogeState
-};
-
-export default initialState;
 ```
 
 ### babalrc

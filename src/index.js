@@ -5,13 +5,11 @@ import flowSyntax from 'babel-plugin-syntax-flow'
 import { loadFileSync } from 'babel-file-loader'
 import { removeFlowComment } from 'babel-add-flow-comments'
 import explodeModule from 'babel-explode-module'
-import camelCase from 'camelcase'
 import upperCamelCase from 'uppercamelcase'
 import type { Path, State } from './types'
 import { getImportPath } from './util'
 
 const STATE = 'State'
-const INITIAL_STATE = 'initialState'
 
 function getStateName(path: string) {
   const parentPath = normalize(dirname(path)).split('/')
@@ -29,10 +27,6 @@ function isExport(path: Path, target: string): boolean {
 
 function haveStateType(path: Path): boolean {
   return isExport(path, STATE)
-}
-
-function haveInitialState(path: Path): boolean {
-  return isExport(path, INITIAL_STATE)
 }
 
 // export type State = { app: AppState }
@@ -55,30 +49,6 @@ const createStateDeclaration = (states: Array<*>) => {
   )
 }
 
-// const initialState: State = { app: appState }
-const createInitialStateDeclaration = (states: Array<*>) => {
-  const props = states.map(v =>
-    t.objectProperty(
-      t.identifier(v.name.replace(STATE, '').toLowerCase()),
-      t.identifier(camelCase(v.name))
-    )
-  )
-
-  const id = t.identifier(INITIAL_STATE)
-
-  id.typeAnnotation = t.typeAnnotation(
-    t.genericTypeAnnotation(t.identifier(STATE))
-  )
-
-  return t.variableDeclaration('const', [
-    t.variableDeclarator(id, t.objectExpression(props))
-  ])
-}
-
-const createExportDefault = () => {
-  return t.exportDefaultDeclaration(t.identifier(INITIAL_STATE))
-}
-
 // import type {State as AppState} from './App/reducer'
 const createNewImportStateDeclaration = (source: ?string) => {
   if (!source) {
@@ -86,7 +56,7 @@ const createNewImportStateDeclaration = (source: ?string) => {
   }
 
   const specifiers = [
-    t.importSpecifier(t.identifier(getStateName(source)), t.identifier(STATE))
+    t.importSpecifier(t.identifier(getStateName(source)), t.identifier(STATE)),
   ]
   const newImportStateDeclaration = t.importDeclaration(
     specifiers,
@@ -95,26 +65,6 @@ const createNewImportStateDeclaration = (source: ?string) => {
 
   // $FlowFixMe
   newImportStateDeclaration.importKind = 'type'
-
-  return newImportStateDeclaration
-}
-
-// import {initialState as appState} from './App/reducer'
-const createInitStateDeclaration = (source: ?string) => {
-  if (!source) {
-    return null
-  }
-
-  const specifiers = [
-    t.importSpecifier(
-      t.identifier(camelCase(getStateName(source))),
-      t.identifier(INITIAL_STATE)
-    )
-  ]
-  const newImportStateDeclaration = t.importDeclaration(
-    specifiers,
-    t.stringLiteral(source)
-  )
 
   return newImportStateDeclaration
 }
@@ -136,7 +86,7 @@ export default () => {
           try {
             const { path: loadPath } = loadFileSync(input)
 
-            if (!(haveStateType(loadPath) && haveInitialState(loadPath))) {
+            if (!haveStateType(loadPath)) {
               return false
             }
           } catch (err) {
@@ -161,15 +111,11 @@ export default () => {
             : []
 
           // import type
-          const importStates = Array.from(
+          const typeDeclarations = Array.from(
             new Set([...thisImports, importPath])
-          ).sort()
-
-          const typeDeclarations = importStates.map(
-            createNewImportStateDeclaration
           )
-
-          const declarations = importStates.map(createInitStateDeclaration)
+            .sort()
+            .map(createNewImportStateDeclaration)
 
           // すでにあるimport typeを取得
           const stateNames = exploded.imports
@@ -186,19 +132,13 @@ export default () => {
           path.node.body = [
             ...typeDeclarations,
             t.noop(),
-            ...declarations,
-            t.noop(),
             createStateDeclaration(states),
-            t.noop(),
-            createInitialStateDeclaration(states),
-            t.noop(),
-            createExportDefault()
           ]
 
           removeFlowComment(file.ast.comments)
           path.addComment('leading', ' @flow', true)
-        }
-      }
-    }
+        },
+      },
+    },
   }
 }

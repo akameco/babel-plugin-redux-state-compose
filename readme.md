@@ -39,8 +39,8 @@ import type { State as AppState } from './App/reducer';
 import type { State as HogeState } from './Hoge/reducer';
 
 export type State = {
-  app: AppState;
-  hoge: HogeState;
+  App: AppState;
+  Hoge: HogeState;
 };
 ```
 
